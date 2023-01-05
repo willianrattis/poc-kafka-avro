@@ -82,9 +82,9 @@ services:
     container_name: kafdrop
     networks:
       - broker-kafka
-      - schema-registry
     depends_on:
       - kafka
+      - schema-registry
     ports:
       - 19000:9000
     environment:
@@ -94,4 +94,5 @@ services:
 networks:
   broker-kafka:
     driver: bridge
+
 ```
