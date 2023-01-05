@@ -40,3 +40,8 @@
 /Users/willianrattis/Development/NET/Projetos-Teste/apache-kafka-avron/Produtor/bin/Debug/net7.0/runtimes/win-x86/native/zlib1.dll
 /Users/willianrattis/Development/NET/Projetos-Teste/apache-kafka-avron/Produtor/bin/Debug/net7.0/runtimes/win-x86/native/zstd.dll
 /Users/willianrattis/Development/NET/Projetos-Teste/apache-kafka-avron/Produtor/obj/Debug/net7.0/Produtor.csproj.CopyComplete
+/Users/willianrattis/Development/NET/Projetos-Teste/apache-kafka-avron/Produtor/bin/Debug/net7.0/Avro.dll
+/Users/willianrattis/Development/NET/Projetos-Teste/apache-kafka-avron/Produtor/bin/Debug/net7.0/Confluent.SchemaRegistry.dll
+/Users/willianrattis/Development/NET/Projetos-Teste/apache-kafka-avron/Produtor/bin/Debug/net7.0/Confluent.SchemaRegistry.Serdes.Avro.dll
+/Users/willianrattis/Development/NET/Projetos-Teste/apache-kafka-avron/Produtor/bin/Debug/net7.0/Newtonsoft.Json.dll
+/Users/willianrattis/Development/NET/Projetos-Teste/apache-kafka-avron/Produtor/bin/Debug/net7.0/System.CodeDom.dll
