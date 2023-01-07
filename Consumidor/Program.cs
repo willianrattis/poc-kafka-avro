@@ -1,6 +1,4 @@
-﻿using Confluent.Kafka.SyncOverAsync;
-
-var schemaConfig = new SchemaRegistryConfig
+﻿var schemaConfig = new SchemaRegistryConfig
 {
     Url = "http://localhost:8081"
 };

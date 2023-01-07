@@ -29,4 +29,4 @@ var message = new Message<string, Models.Coleta>
 
 var result = await producer.ProduceAsync("coleta", message);
 
-Console.WriteLine($"{result.Offset}");
+Console.WriteLine($"{ result.Offset }");
