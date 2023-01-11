@@ -1,11 +1,4 @@
-﻿var schemaConfig = new SchemaRegistryConfig
-{
-    Url = "http://localhost:8081"
-};
-
-var schemaRegistry = new CachedSchemaRegistryClient(schemaConfig);
-
-var config = new ProducerConfig { BootstrapServers = "localhost:9092" };
+﻿var config = new ProducerConfig { BootstrapServers = "localhost:9092" };
 
 var messageJson = new Models.ExibicaoPDP
 {

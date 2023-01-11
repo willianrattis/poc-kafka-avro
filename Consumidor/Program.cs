@@ -1,11 +1,4 @@
-﻿var schemaConfig = new SchemaRegistryConfig
-{
-    Url = "http://localhost:8081"
-};
-
-var schemaRegistry = new CachedSchemaRegistryClient(schemaConfig);
-
-var config = new ConsumerConfig
+﻿var config = new ConsumerConfig
 {
     GroupId = "Coleta",
     BootstrapServers = "localhost:9092",
