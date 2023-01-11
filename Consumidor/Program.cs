@@ -1,6 +1,4 @@
-﻿using Confluent.Kafka.SyncOverAsync;
-
-var schemaConfig = new SchemaRegistryConfig
+﻿var schemaConfig = new SchemaRegistryConfig
 {
     Url = "http://localhost:8081"
 };
@@ -10,12 +8,12 @@ var schemaRegistry = new CachedSchemaRegistryClient(schemaConfig);
 var config = new ConsumerConfig
 {
     GroupId = "Coleta",
-    BootstrapServers = "localhost:9092"
+    BootstrapServers = "localhost:9092",
+    EnableAutoCommit = false,
+    EnablePartitionEof = true
 };
 
-using var consumer = new ConsumerBuilder<string, Models.Coleta>(config)
-                         .SetValueDeserializer(new AvroDeserializer<Models.Coleta>(schemaRegistry)
-                         .AsSyncOverAsync())
+using var consumer = new ConsumerBuilder<string, string>(config)
                          .Build();
 
 consumer.Subscribe("coleta");
@@ -23,20 +21,26 @@ consumer.Subscribe("coleta");
 while (true)
 {
     var result = consumer.Consume();
-    WriteObject(result);
-}
 
-static void WriteObject(ConsumeResult<string, Models.Coleta>? result)
-{
-    Console.WriteLine();
-    Console.WriteLine($"Key: {result?.Message?.Key}");
-    Console.WriteLine("----------------------------------------------");
-    Console.WriteLine($"DeviceId: {result?.Message.Value?.DeviceId}");
-    Console.WriteLine($"Bandeira: {result?.Message.Value?.Bandeira}");
-    Console.WriteLine($"ProdutoId: {result?.Message.Value?.ProdutoId}");
-    Console.WriteLine($"PrecoSite: {result?.Message.Value?.PrecoSite}");
-    Console.WriteLine($"PrecoDesconto: {result?.Message.Value?.PrecoDesconto}");
-    Console.WriteLine($"Sku: {result?.Message.Value?.Sku}");
-    Console.WriteLine($"Origem: {result?.Message.Value?.Origem}");
-    Console.WriteLine($"DataEvento: {result?.Message.Value?.DataEvento}");
+    if (result.IsPartitionEOF)
+    {
+        continue;
+    }
+
+    var payload = System.Text.Json.JsonSerializer.Deserialize<Models.ExibicaoPDP>(result.Message.Value, new JsonSerializerOptions
+    {
+        IgnoreReadOnlyProperties = true,
+        IgnoreReadOnlyFields = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        PropertyNameCaseInsensitive = true,
+        DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
+    });
+
+    var json = System.Text.Json.JsonSerializer.Serialize<Models.ExibicaoPDP>(payload, new JsonSerializerOptions{
+        WriteIndented = true
+    });
+
+    Console.WriteLine(json);
+
+    consumer.Commit();
 }
